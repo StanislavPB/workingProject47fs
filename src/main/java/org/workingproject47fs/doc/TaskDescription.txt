@@ -1,0 +1,109 @@
+Написать приложение для учета задач пользователя
+
+class Task
+-----------
+
+Integer id
+String taskName
+String taskDescription
+Manager manager
+Date createDate
+Date lastUpdate
+Date deadline
+TaskStatus status
+
+
+
+Manager
+---------
+
+Integer id
+String managerName
+String password
+String email
+Role role
+
+
+
+
+Role для manager
+
+
+
+ManagerCreateRequestDto
+-----------------------
+String managerName
+String password
+String email
+
+
+ManagerResponseDto
+---------
+
+Integer id
+String managerName
+String email
+Role role
+
+
+
+
+class TaskCreateRequestDto
+--------------------------
+
+String taskName
+String taskDescription
+String managerEmail
+Date deadline
+
+
+class TaskResponseDto
+--------------------------
+
+Integer id
+String taskName
+String taskDescription
+ManagerResponseDto managerResponseDto
+Date createDate
+Date lastUpdate
+Date deadline
+TaskStatus status
+
+==================================
+
+API
+
+----------- manager ---------
+post запрос для добавления manager
+
+public ManagerResponseDto createNewManager(ManagerCreateRequestDto request)
+
+JSON запрос
+{
+"managerNAme" : .....,
+"password" : ....,
+"email" : .....
+}
+
+
+
+get - найти всех
+public List<ManagerResponseDto> findAllManagers();
+
+
+---------------- task --------------
+
+post запрос для добавления task
+
+public TaskResponseDto createNewTask(TaskCreateRequestDto request)
+
+JSON запрос
+
+{
+"taskName" : ...
+"taskDescription" :....
+"managerEmail" : .....
+"deadline" : .....
+}
+
+
