@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.workingproject47fs.dto.GeneralResponse;
 import org.workingproject47fs.dto.managerDto.ManagerCreateRequestDto;
 import org.workingproject47fs.dto.managerDto.ManagerResponseDto;
 import org.workingproject47fs.entity.Manager;
