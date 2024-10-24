@@ -1,6 +1,8 @@
 package org.workingproject47fs.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.workingproject47fs.dto.GeneralResponse;
 import org.workingproject47fs.dto.managerDto.ManagerCreateRequestDto;
@@ -18,23 +20,23 @@ public class ManagerController {
     private final ManagerService service;
 
     @PostMapping
-    public GeneralResponse<ManagerResponseDto> createNewManager(@RequestBody ManagerCreateRequestDto request){
-        return service.createNewManager(request);
+    public ResponseEntity<ManagerResponseDto> createNewManager(@RequestBody ManagerCreateRequestDto request){
+        return new ResponseEntity<>(service.createNewManager(request), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public List<ManagerResponseDto> findAll(){
-        return service.findAll();
+    public ResponseEntity<List<ManagerResponseDto>> findAll(){
+        return new ResponseEntity<>(service.findAll(),HttpStatus.OK);
     }
 
     @GetMapping("/full")
-    public List<Manager> findAllFull(){
-        return service.findAllFullDetails();
+    public ResponseEntity<List<Manager>> findAllFull(){
+        return ResponseEntity.ok(service.findAllFullDetails());
     }
 
     @GetMapping("/email")
-    public GeneralResponse<ManagerResponseDto> findManagerByEmail(@RequestParam String email){
-        return service.findManagerByEmail(email);
+    public ResponseEntity<ManagerResponseDto> findManagerByEmail(@RequestParam String email){
+        return ResponseEntity.ok(service.findManagerByEmail(email));
     }
 
 }

@@ -1,4 +1,4 @@
-package org.workingproject47fs.service;
+package org.oldVersion.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,14 +9,12 @@ import org.workingproject47fs.entity.Manager;
 import org.workingproject47fs.entity.Role;
 import org.workingproject47fs.repository.ManagerRepository;
 import org.workingproject47fs.repository.RoleRepository;
-import org.workingproject47fs.service.exception.AlreadyExistException;
-import org.workingproject47fs.service.exception.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+
 @RequiredArgsConstructor
 public class ManagerService {
 
@@ -24,10 +22,12 @@ public class ManagerService {
     private final RoleRepository roleRepository;
 
 
-    public ManagerResponseDto createNewManager(ManagerCreateRequestDto request){
+    public GeneralResponse<ManagerResponseDto> createNewManager(ManagerCreateRequestDto request){
 
         if (checkIsExistManager(request.getEmail())){
-            throw new AlreadyExistException("Пользователь с email " + request.getEmail() + " уже зарегистрирован");
+            GeneralResponse<ManagerResponseDto> response = new GeneralResponse<>(null,new ArrayList<>());
+            response.addError("Пользователь с email " + request.getEmail() + " уже зарегистрирован");
+            return response;
         }
 
         Manager newManager = createManagerFromDto(request);
@@ -36,7 +36,7 @@ public class ManagerService {
 
         ManagerResponseDto response = createDtoFromManager(savedManager);
 
-        return response;
+        return new GeneralResponse<>(response,new ArrayList<>());
 
     }
 
@@ -69,15 +69,17 @@ public class ManagerService {
                 .toList();
     }
 
-    public ManagerResponseDto findManagerByEmail(String email){
+    public GeneralResponse<ManagerResponseDto> findManagerByEmail(String email){
 
         Optional<Manager> managerOptional = managerRepository.findByEmail(email);
 
         if (managerOptional.isPresent()) {
             ManagerResponseDto response = createDtoFromManager(managerOptional.get());
-            return response;
+            return new GeneralResponse<>(response,new ArrayList<>());
         } else {
-            throw new NotFoundException("Manager with email " + email + " not found");
+            GeneralResponse<ManagerResponseDto> generalResponse = new GeneralResponse<>(null,new ArrayList<>());
+            generalResponse.addError("Manager with email " + email + " not found");
+            return generalResponse;
         }
 
     }
