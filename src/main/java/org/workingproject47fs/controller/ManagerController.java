@@ -21,7 +21,6 @@ public class ManagerController {
 
     @PostMapping
     public ResponseEntity<ManagerResponseDto> createNewManager(@Valid @RequestBody ManagerCreateRequestDto request){
-        System.out.println("НАЧАЛИ ОБРАБОТКУ ДАННЫХ!!!");
         return new ResponseEntity<>(service.createNewManager(request), HttpStatus.CREATED);
     }
 

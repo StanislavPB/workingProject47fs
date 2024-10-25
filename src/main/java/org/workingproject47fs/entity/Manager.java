@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.workingproject47fs.annotation.OurValidation;
 
 @Data
 @AllArgsConstructor
@@ -21,7 +22,7 @@ public class Manager {
     @Pattern(regexp = "^[A-Za-z0-9]+$", message = "Manager name can contain only latin characters or digital")
     private String managerName;
 
-    @NotBlank (message = "Password must be not blank")
+    @OurValidation(message = "Пароль не соответствует критериям безопасности")
     private String password;
 
     @NotBlank(message = "Email must be not blank")
