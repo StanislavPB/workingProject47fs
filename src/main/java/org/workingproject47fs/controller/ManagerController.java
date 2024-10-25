@@ -1,10 +1,16 @@
 package org.workingproject47fs.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.workingproject47fs.controller.api.ManagerControllerApi;
 import org.workingproject47fs.dto.managerDto.ManagerCreateRequestDto;
 import org.workingproject47fs.dto.managerDto.ManagerResponseDto;
 import org.workingproject47fs.entity.Manager;
@@ -14,10 +20,10 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/managers")
-public class ManagerController {
+public class ManagerController implements ManagerControllerApi {
 
     private final ManagerService service;
+
 
     @PostMapping
     public ResponseEntity<ManagerResponseDto> createNewManager(@Valid @RequestBody ManagerCreateRequestDto request){
