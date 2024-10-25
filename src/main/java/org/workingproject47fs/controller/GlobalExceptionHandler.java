@@ -1,5 +1,6 @@
 package org.workingproject47fs.controller;
 
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -33,5 +34,19 @@ public class GlobalExceptionHandler {
     }
 
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<String> handlerConstraintViolationException(ConstraintViolationException e){
+
+        StringBuilder responseMessage = new StringBuilder();
+
+        e.getConstraintViolations().forEach(
+                constraintViolation -> {
+                    String currentMessage = constraintViolation.getMessage();
+                    responseMessage.append(currentMessage).append("\n");
+                }
+        );
+
+        return new ResponseEntity<>(responseMessage.toString(),HttpStatus.BAD_REQUEST);
+    }
 
 }
