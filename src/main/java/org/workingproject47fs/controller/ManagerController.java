@@ -1,5 +1,6 @@
 package org.workingproject47fs.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,8 @@ public class ManagerController {
     private final ManagerService service;
 
     @PostMapping
-    public ResponseEntity<ManagerResponseDto> createNewManager(@RequestBody ManagerCreateRequestDto request){
+    public ResponseEntity<ManagerResponseDto> createNewManager(@Valid @RequestBody ManagerCreateRequestDto request){
+        System.out.println("НАЧАЛИ ОБРАБОТКУ ДАННЫХ!!!");
         return new ResponseEntity<>(service.createNewManager(request), HttpStatus.CREATED);
     }
 
